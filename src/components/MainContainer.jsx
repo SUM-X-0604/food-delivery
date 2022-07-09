@@ -39,7 +39,6 @@ const MainContainer = () => {
                     flag={true}
                     data={foodItems?.filter((item) => item.category === "fruits")}
                 />
-
             </section >
 
             {/* Menu section */}

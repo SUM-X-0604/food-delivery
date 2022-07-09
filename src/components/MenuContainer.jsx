@@ -25,10 +25,10 @@ const MenuContainer = () => {
                         <motion.div
                             whileHover={{ scale: 1.20 }}
                             key={category.id}
-                            className={`group 
-                            ${filter === category.urlParamName ?
-                                    'bg-cartNumBg ' : 'bg-card'}
-                             hover:bg-cartNumBg w-24 min-w-[94px] h-28 mt-10 rounded-lg drop-shadow-xl  flex flex-col items-center justify-center gap-3 cursor-pointer `}
+                            className={
+                                `group 
+                                    ${filter === category.urlParamName ? 'bg-cartNumBg ' : 'bg-card'}
+                                hover:bg-cartNumBg w-24 min-w-[94px] h-28 mt-10 rounded-lg drop-shadow-xl flex flex-col items-center justify-center gap-3 cursor-pointer `}
                             onClick={
                                 () => setFilter(category.urlParamName)
                             }>
