@@ -10,14 +10,14 @@ import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/Reducer';
 
 const Header = () => {
-
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
 
   const [isMenu, setIsMenu] = useState(false);
 
+  // login function
   const login = async () => {
     if (!user) {
       const { user: { providerData } } = await signInWithPopup(firebaseAuth, provider);
@@ -31,14 +31,22 @@ const Header = () => {
     }
   };
 
+  // logout function
   const logout = () => {
     setIsMenu(false);
     localStorage.clear();
-
     dispatch({
       type: actionType.SET_USER,
       user: null
-    })
+    });
+  };
+
+  // show cart function
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow
+    });
   }
 
   return (
@@ -47,11 +55,13 @@ const Header = () => {
 
         {/* desktop and teblet  */}
         <div className='hidden md:flex w-full h-full p-2 items-center justify-between'>
+          {/* Logo */}
           <Link to={"/"} className='flex items-center gap-3 cursor-pointer'>
             <img src={Logo} alt="logo" className='w-6 md:w-12 object-cover ' />
             <p className='font-bold text-headingColor text-md md:text-xl'>BEST IN TOWN</p>
           </Link>
 
+          {/* Nav Links */}
           <div className='flex items-center justify-center gap-8'>
             <motion.ul
               initial={{ opacity: 0, x: 200 }}
@@ -64,18 +74,22 @@ const Header = () => {
               <li className='navOptions' onClick={() => setIsMenu(false)}>Services</li>
             </motion.ul>
 
-            <div className='relative flex items-center justify-center hover:animate-bounce'>
+            {/* cart icon */}
+            <div className='relative flex items-center justify-center' onClick={showCart}>
               <MdShoppingBasket className='text-2xl text-textColor cursor-pointer' />
-              <div className='absolute -top-3 -right-2 h-5 w-5 bg-cartNumBg rounded-full flex items-center justify-center'>
-                <p className='text-white text-sm font-semibold'>0</p>
-              </div>
+              {cartItems && cartItems.length > 0 && (
+                <div className='absolute -top-3 -right-2 h-5 w-5 bg-cartNumBg rounded-full flex items-center justify-center'>
+                  <p className='text-white text-sm font-semibold'>{cartItems.length}</p>
+                </div>
+              )}
             </div>
 
+            {/* login */}
             <div className='relative'>
               <motion.img
                 whileTap={{ scale: 0.6 }}
                 src={user ? user.photoURL : avater}
-                alt="img"
+                alt=""
                 className='w-10 h-10 cursor-pointer rounded-full min-w-[40px] min-h-[40px] shadow-2xl'
                 onClick={login}
               />
@@ -102,14 +116,14 @@ const Header = () => {
         </div>
 
         {/* MOBILE VIEW */}
-
         <div className='flex items-center justify-between md:hidden w-full h-full p-3'>
-
-          <div className='relative flex items-center justify-center hover:animate-bounce'>
+          <div className='relative flex items-center justify-center' onClick={showCart}>
             <MdShoppingBasket className='text-2xl text-textColor cursor-pointer' />
-            <div className='absolute -top-3 -right-2 h-5 w-5 bg-cartNumBg rounded-full flex items-center justify-center'>
-              <p className='text-white text-sm font-semibold'>0</p>
-            </div>
+            {cartItems && cartItems.length > 0 && (
+              <div className='absolute -top-3 -right-2 h-5 w-5 bg-cartNumBg rounded-full flex items-center justify-center'>
+                <p className='text-white text-sm font-semibold'>{cartItems.length}</p>
+              </div>
+            )}
           </div>
 
           <Link to={"/"} className='flex items-center gap-3 cursor-pointer'>
@@ -120,10 +134,10 @@ const Header = () => {
             <motion.img
               whileTap={{ scale: 0.6 }}
               src={user ? user.photoURL : avater}
-              alt="img"
+              alt=""
               className='w-10 h-10 cursor-pointer rounded-full min-w-[40px] min-h-[40px] shadow-2xl'
               onClick={login}
-              
+
             />
             {
               isMenu && (

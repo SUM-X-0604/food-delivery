@@ -144,7 +144,6 @@ const CreateContainer = () => {
         });
     };
 
-
     return (
         <div className='w-full min-h-screen flex items-center justify-center'>
             <div className='w-[90%] md:w-[75%] border  rounded-lg p-4 border-gray-300 flex flex-col items-center justify-center gap-4'>
@@ -292,9 +291,7 @@ const CreateContainer = () => {
                         Save
                     </button>
                 </div>
-
                 {/* save button end */}
-
             </div>
         </div>
     )

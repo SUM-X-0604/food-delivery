@@ -8,13 +8,14 @@
 }
 
 body {
-font-family: "poppins" ,serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+font-family: "poppins" ,serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 html, body {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+
 
 @tailwind base;
 @tailwind components;
@@ -37,3 +38,4 @@ html, body {
     @apply flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-300 transition-all duration-100 ease-in-out text-textColor text-base rounded-xl hover:text-red-400
   }
 }
+
